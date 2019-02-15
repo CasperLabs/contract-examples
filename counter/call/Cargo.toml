@@ -1,0 +1,11 @@
+[package]
+name = "counter-call"
+version = "0.1.0"
+authors = ["Michael Birch <birchmd@casperlabs.io>"]
+
+[lib]
+name = "countercall"
+crate-type = ["cdylib"]
+
+[dependencies]
+common = { path = "../../../execution-engine/common" }

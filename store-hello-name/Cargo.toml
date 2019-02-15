@@ -1,0 +1,11 @@
+[package]
+name = "store-hello-name"
+version = "0.1.0"
+authors = ["Michael Birch <birchmd@casperlabs.io>"]
+
+[lib]
+name = "helloname"
+crate-type = ["cdylib"]
+
+[dependencies]
+common = { path = "../../execution-engine/common" }
