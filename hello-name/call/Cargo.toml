@@ -8,4 +8,4 @@ name = "helloworld"
 crate-type = ["cdylib"]
 
 [dependencies]
-common = { path = "../../execution-engine/common" }
+common = { path = "../../../CasperLabs/execution-engine/common" }
