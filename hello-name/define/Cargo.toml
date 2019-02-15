@@ -8,4 +8,4 @@ name = "helloname"
 crate-type = ["cdylib"]
 
 [dependencies]
-common = { path = "../../../CasperLabs/execution-engine/common" }
+common = { package = "casperlabs-contract-ffi", version = "^0" }
