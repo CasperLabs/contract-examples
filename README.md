@@ -21,7 +21,7 @@ To deploy the contracts you have to use the `casperlabs-client`, which can talk 
 
 For example you an install the client on Ubuntu as follows:
 
-```
+```console
 curl -o casperlabs-client.deb http://repo.casperlabs.io/casperlabs/repo/dev/casperlabs-client_0.0_all.deb
 sudo dpkg -i ./casperlabs-client.deb
 ```
@@ -37,7 +37,7 @@ Let's deploy one of the contracts.
 
 NOTE: We're going to use the same WASM code for `payment` and `session` now because the node doesn't have the payment feature yet, but this is going to change in future releases.
 
-```
+```console
 $ source .env
 $ CONTRACT=hello-name/define/target/wasm32-unknown-unknown/release/helloname.wasm
 $ casperlabs-client -- --host localhost --port $CL_GRPC_PORT_EXTERNAL deploy \
@@ -50,7 +50,7 @@ Success!
 
 We can check that the node indeed got the deploy:
 
-```
+```console
 $ docker logs --tail 1 contract-examples_node
 15:45:10.908 [node-runner-47] INFO  i.c.casper.MultiParentCasperImpl - Received Deploy #1550504710551
 ```
@@ -59,14 +59,14 @@ Now let's trigger block proposal.
 
 NOTE: This method is going to be removed in future releases.
 
-```
+```console
 $ casperlabs-client -- --host localhost --port $CL_GRPC_PORT_EXTERNAL propose
 Response: Success! Block b24c8311ce... created and added.
 ```
 
 Checking the node logs again, we can see that a block was created:
 
-```
+```console
 $ docker logs --tail 10 contract-examples_node
 15:45:10.908 [node-runner-47] INFO  i.c.casper.MultiParentCasperImpl - Received Deploy #1550504710551
 15:49:01.546 [node-runner-47] INFO  i.c.casper.MultiParentCasperImpl - 1 parents out of 1 latest blocks will be used.
@@ -82,7 +82,7 @@ Hash(a4669933ec...) :: Write(Contract(0061736d01..., {}))
 
 And the logs of the execution engine show the costs and the change in state:
 
-```
+```console
 $ docker logs --tail 10 contract-examples_execution-engine
 Server is listening on socket: .casperlabs/sockets/.casper-node.sock
 Gas count: 968870
@@ -92,7 +92,7 @@ Effects applied. New state hash is: [17, 68, 236, 137, 239, 106, 183, 55, 199, 1
 
 Now let's try to call the contract.
 
-```
+```console
 $ CONTRACT=hello-name/call/target/wasm32-unknown-unknown/release/helloworld.wasm
 $ casperlabs-client -- --host localhost --port $CL_GRPC_PORT_EXTERNAL deploy \
     --from 00000000000000000000 \
@@ -106,7 +106,7 @@ Response: Success! Block a32a34ae5b... created and added.
 
 If we look at the node logs, we can see that the effects of the deploy have been included in the block:
 
-```
+```console
 $ docker logs --tail 10 contract-examples_node
 15:57:09.406 [node-runner-47] INFO  i.c.casper.MultiParentCasperImpl - 1 parents out of 1 latest blocks will be used.
 15:57:09.523 [grpc-default-executor-2] INFO  i.c.casper.MultiParentCasperImpl - Block #2 created with effects:
