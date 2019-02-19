@@ -9,7 +9,7 @@ CONTRACTS := $(shell find . -type f -name Cargo.toml | sed 's/\/Cargo.toml//' | 
 
 all: $(EXAMPLES)
 
-clean: $(shell find . -type f -name "Cargo.toml" | awk '{print $$1"/clean"}')
+clean: down $(shell find . -type f -name "Cargo.toml" | awk '{print $$1"/clean"}')
 	rm -rf .make
 
 # Defining rules so each target building a contract only depends on its own source. Needs GNU Make.
@@ -38,3 +38,10 @@ $(foreach d,$(CONTRACTS),$(eval $(call CONTRACT_rule,$(d))))
 	rustup update
 	rustup target add wasm32-unknown-unknown
 	mkdir -p $(dir $@) && touch $@
+
+
+up:
+	docker-compose up -d
+
+down:
+	docker-compose down
