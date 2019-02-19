@@ -28,6 +28,15 @@ sudo dpkg -i ./casperlabs-client.deb
 
 Depending on your version of Ubuntu you may see errors about unmet dependencies (specifically `openjdk-11-jre-headless`), but if you have Java then try running `casperlabs-client -- --version`, it should work.
 
+You can also install from tarball:
+
+```console
+curl -O http://repo.casperlabs.io/casperlabs/repo/dev/casperlabs-client-0.0.tgz
+tar -xzf casperlabs-client-0.0.tgz
+alias casperlabs-client=$PWD/casperlabs-client-0.0/bin/casperlabs-client
+casperlabs-client --version
+```
+
 Alternatively we can use the docker version of the client with `docker run` as the multi-node docker example does in the main repository, using `--network contract-examples_default`.
 
 
