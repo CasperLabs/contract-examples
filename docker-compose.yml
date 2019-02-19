@@ -12,6 +12,8 @@ services:
     volumes:
       - socketvolume:/root/.casperlabs/sockets
       # Mount the bonds.txt corresponding to the validator public key.
+      # If we don't specify a key to use when starting the node it will
+      # be in read-only mode and we can't deploy anything.
       - $PWD/.casperlabs/genesis:/root/.casperlabs/genesis
     ports:
       # gRPC port for the client to talk to.
