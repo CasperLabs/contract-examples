@@ -7,7 +7,7 @@ volumes:
 services:
 
   node:
-    image: io.casperlabs/node:latest
+    image: casperlabs/node:latest
     container_name: contract-examples_node
     volumes:
       - socketvolume:/root/.casperlabs/sockets
@@ -31,7 +31,7 @@ services:
       - execution-engine
 
   execution-engine:
-    image: io.casperlabs/execution-engine:latest
+    image: casperlabs/execution-engine:latest
     container_name: contract-examples_execution-engine
     volumes:
       - socketvolume:/opt/docker/.casperlabs/sockets
