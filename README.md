@@ -26,7 +26,7 @@ curl -o casperlabs-client.deb http://repo.casperlabs.io/casperlabs/repo/dev/casp
 sudo dpkg -i ./casperlabs-client.deb
 ```
 
-Depending on your version of Ubuntu you may see errors about unmet dependencies (specifically `openjdk-11-jre-headless`), but if you have Java then try running `casperlabs-client -- --version`, it should work.
+Depending on your version of Ubuntu you may see errors about unmet dependencies (specifically `openjdk-11-jre-headless`), but if you have Java then try running `casperlabs-client -- --version`, it might work, otherwise please install OpenJDK version 11.
 
 You can also install from tarball:
 
