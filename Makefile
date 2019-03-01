@@ -15,7 +15,7 @@ clean: down $(shell find . -type f -name "Cargo.toml" | awk '{print $$1"/clean"}
 # Defining rules so each target building a contract only depends on its own source. Needs GNU Make.
 # Building either a call or a define, leaving the WASM files in <contract>/target/wasm32-unknown-unknown/release/
 define CONTRACT_rule
-.make/contracts/$(1): $$(shell find $(1) -type f -iregex ".*/Cargo\.toml\|.*/src/.*\.rs") .make/rustup-update
+.make/contracts/$(1): $$(shell find $(1) -type f \( -name "Cargo.toml" -o -wholename "*/src/*.rs" \)) .make/rustup-update
 	cd $(1) && cargo +nightly build --release --target wasm32-unknown-unknown
 	mkdir -p $$(dir $$@) && touch $$@
 endef

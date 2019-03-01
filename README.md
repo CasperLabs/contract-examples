@@ -19,10 +19,10 @@ You can use `make up` to start a single local node in Docker using the `docker-c
 
 To deploy the contracts you have to use the `casperlabs-client`, which can talk to a CasperLabs Node. Packages are published to http://repo.casperlabs.io/casperlabs/repo
 
-For example you an install the client on Ubuntu as follows:
+For example you an install the client on Ubuntu as follows (please substitute `[VERSION]` with the what you can find in the repo):
 
 ```console
-curl -o casperlabs-client.deb http://repo.casperlabs.io/casperlabs/repo/dev/casperlabs-client_0.0_all.deb
+curl -o casperlabs-client.deb http://repo.casperlabs.io/casperlabs/repo/dev/casperlabs-client_[VERSION]_all.deb
 sudo dpkg -i ./casperlabs-client.deb
 ```
 
@@ -31,9 +31,9 @@ Depending on your version of Ubuntu you may see errors about unmet dependencies 
 You can also install from tarball:
 
 ```console
-curl -O http://repo.casperlabs.io/casperlabs/repo/dev/casperlabs-client-0.0.tgz
-tar -xzf casperlabs-client-0.0.tgz
-alias casperlabs-client=$PWD/casperlabs-client-0.0/bin/casperlabs-client
+curl -O http://repo.casperlabs.io/casperlabs/repo/dev/casperlabs-client-[VERSION].tgz
+tar -xzf casperlabs-client-[VERSION].tgz
+alias casperlabs-client=$PWD/casperlabs-client-[VERSION]/bin/casperlabs-client
 casperlabs-client --version
 ```
 
