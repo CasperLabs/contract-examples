@@ -36,6 +36,7 @@ $(foreach d,$(CONTRACTS),$(eval $(call CONTRACT_rule,$(d))))
 
 .make/rustup-update:
 	rustup update
+	rustup toolchain install nightly
 	rustup target add --toolchain nightly wasm32-unknown-unknown
 	mkdir -p $(dir $@) && touch $@
 
