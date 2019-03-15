@@ -8,47 +8,40 @@ use alloc::string::String;
 use alloc::vec::Vec;
 
 extern crate common;
-use common::ext::*;
+use common::contract_api::*;
+use common::contract_api::pointers::UPointer;
 use common::key::Key;
-use common::value::Value;
 
-fn curr_list() -> Vec<String> {
-    let names_list_key = get_uref("list");
-
-    if let Value::ListString(list) = read(&names_list_key) {
-        list
-    } else {
-        panic!("A list of strings is not found at the list key!")
-    }
+fn get_list_key(name: &str) -> UPointer<Vec<String>> {
+    get_uref(name).to_u_ptr().unwrap()
 }
 
 fn update_list(name: String) {
-    let names_list_key = get_uref("list");
-    let mut list = curr_list();
+    let list_key = get_list_key("list");
+    let mut list = read(list_key.clone());
     list.push(name);
-    write(&names_list_key, &Value::ListString(list));
+    write(list_key, list);
 }
 
-fn sub(name: String) -> Option<Key> {
+fn sub(name: String) -> Option<UPointer<Vec<String>>> {
     if has_uref(&name) {
         None //already subscribed
     } else {
-        let new_key = new_uref();
-        let init_message = Value::ListString(vec![String::from("Welcome!")]);
-        add_uref(&name, &new_key);
-        write(&new_key, &init_message);
+        let init_message = vec![String::from("Welcome!")];
+        let new_key = new_uref(init_message);
+        add_uref(&name, &new_key.clone().into());
         update_list(name);
         Some(new_key)
     }
 }
 
 fn publish(msg: String) {
-    for name in curr_list().iter() {
-        let uref = get_uref(name);
-        if let Value::ListString(mut messages) = read(&uref) {
-            messages.push(msg.clone());
-            write(&uref, &Value::ListString(messages));
-        }
+    let curr_list = read(get_list_key("list"));
+    for name in curr_list.iter() {
+        let uref = get_list_key(name);
+        let mut messages = read(uref.clone());
+        messages.push(msg.clone());
+        write(uref, messages);
     }
 }
 
@@ -56,7 +49,7 @@ fn publish(msg: String) {
 pub extern "C" fn mailing_list_ext() {
     let method_name: String = get_arg(0);
     match method_name.as_str() {
-        "sub" => match sub(get_arg(1)) {
+        "sub" => match sub(get_arg(1)).map(Key::from) {
             Some(key) => {
                 let extra_urefs = vec![key];
                 ret(&Some(key), &extra_urefs);
@@ -76,13 +69,13 @@ pub extern "C" fn mailing_list_ext() {
 
 #[no_mangle]
 pub extern "C" fn call() {
-    let list_key = new_uref();
-    write(&list_key, &Value::ListString(Vec::new()));
+    let init_list: Vec<String> = Vec::new();
+    let list_key = new_uref(init_list);
 
     //create map of references for stored contract
     let mut mailing_list_urefs: BTreeMap<String, Key> = BTreeMap::new();
     let key_name = String::from("list");
-    mailing_list_urefs.insert(key_name, list_key);
+    mailing_list_urefs.insert(key_name, list_key.into());
 
     let _hash = store_function("mailing_list_ext", mailing_list_urefs);
 }
