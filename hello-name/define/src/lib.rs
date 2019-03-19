@@ -7,7 +7,7 @@ use alloc::string::String;
 use alloc::vec::Vec;
 
 extern crate common;
-use common::ext::{get_arg, ret, store_function};
+use common::contract_api::{get_arg, ret, store_function};
 
 fn hello_name(name: &str) -> String {
     let mut result = String::from("Hello, ");
