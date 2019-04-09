@@ -1,0 +1,34 @@
+branches:
+  - dev
+  - master
+  - release-*
+  - testing*
+
+# Common parts
+
+# FYI: There's no merging of arrays in YAML. At least not in the Go library
+# Drone uses to parse YAML. So if you mix in &sbtenv and want to add
+# additional volumes, as in package step, you need to specify all volumes.
+
+__buildenv: &buildenv
+  image: casperlabs/buildenv:latest
+
+clone:
+  git-clone:
+    image: casperlabs/buildenv:latest
+    group: clone
+    commands: |
+      set -ex
+      git clone -b ${DRONE_TAG:-$DRONE_BRANCH} $DRONE_REMOTE_URL .
+      if [ x$DRONE_PULL_REQUEST != x ]; then
+          git fetch origin refs/pull/$DRONE_PULL_REQUEST/head
+          EMAIL=ci git merge --no-edit FETCH_HEAD
+      fi
+      git rev-parse HEAD
+
+pipeline:
+
+  build:
+    <<: *buildenv
+    commands:
+      - make all
