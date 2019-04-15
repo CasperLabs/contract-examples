@@ -7,7 +7,6 @@ use alloc::string::String;
 use alloc::vec::Vec;
 
 extern crate common;
-use common::bytesrepr::ToBytes;
 use common::contract_api::pointers::*;
 use common::contract_api::*;
 use common::key::Key;
@@ -21,7 +20,7 @@ pub extern "C" fn call() {
     ]);
     let method = "sub";
     let name = "CasperLabs";
-    let args = vec![method.to_bytes(), name.to_bytes()];
+    let args = (method, name);
     let maybe_sub_key: Option<Key> = call_contract(hash.clone(), &args, &Vec::new());
     let sub_key = maybe_sub_key.unwrap();
 
@@ -31,7 +30,7 @@ pub extern "C" fn call() {
 
     let method = "pub";
     let message = "Hello, World!";
-    let args = vec![method.to_bytes(), message.to_bytes()];
+    let args = (method, message);
     let _result: () = call_contract(hash, &args, &Vec::new());
 
     let list_key: UPointer<Vec<String>> = sub_key.to_u_ptr().unwrap();
