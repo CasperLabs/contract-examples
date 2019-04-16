@@ -7,6 +7,8 @@ EXAMPLES := $(shell find . -type f -name Cargo.toml | awk -F / '{print $$2}' | u
 # Find all contracts, e.g. "hello-name/call" and "hello-name/define"
 CONTRACTS := $(shell find . -type f -name Cargo.toml | sed 's/\/Cargo.toml//' | sed 's/.\///')
 
+RUST_TOOLCHAIN := $(shell cat rust-toolchain)
+
 all: $(EXAMPLES)
 
 clean: down $(shell find . -type f -name "Cargo.toml" | awk '{print $$1"/clean"}')
@@ -16,7 +18,7 @@ clean: down $(shell find . -type f -name "Cargo.toml" | awk '{print $$1"/clean"}
 # Building either a call or a define, leaving the WASM files in <contract>/target/wasm32-unknown-unknown/release/
 define CONTRACT_rule
 .make/contracts/$(1): $$(shell find $(1) -type f \( -name "Cargo.toml" -o -wholename "*/src/*.rs" \)) .make/rustup-update
-	cd $(1) && cargo +nightly build --release --target wasm32-unknown-unknown
+	cd $(1) && cargo +$(RUST_TOOLCHAIN) build --release --target wasm32-unknown-unknown
 	mkdir -p $$(dir $$@) && touch $$@
 endef
 
@@ -35,7 +37,6 @@ $(foreach d,$(CONTRACTS),$(eval $(call CONTRACT_rule,$(d))))
 
 
 .make/rustup-update: rust-toolchain
-	$(eval RUST_TOOLCHAIN = $(shell cat rust-toolchain))
 	rustup update $(RUST_TOOLCHAIN)
 	rustup toolchain install $(RUST_TOOLCHAIN)
 	rustup target add --toolchain $(RUST_TOOLCHAIN) wasm32-unknown-unknown
