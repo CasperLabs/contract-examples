@@ -7,8 +7,6 @@ EXAMPLES := $(shell find . -type f -name Cargo.toml | awk -F / '{print $$2}' | u
 # Find all contracts, e.g. "hello-name/call" and "hello-name/define"
 CONTRACTS := $(shell find . -type f -name Cargo.toml | sed 's/\/Cargo.toml//' | sed 's/.\///')
 
-RUST_TOOLCHAIN := $(shell cat rust-toolchain)
-
 all: $(EXAMPLES)
 
 clean: down $(shell find . -type f -name "Cargo.toml" | awk '{print $$1"/clean"}')
@@ -36,7 +34,8 @@ $(foreach d,$(CONTRACTS),$(eval $(call CONTRACT_rule,$(d))))
 	cd $* && cargo clean
 
 
-.make/rustup-update:
+.make/rustup-update: rust-toolchain
+	$(eval RUST_TOOLCHAIN = $(shell cat rust-toolchain))
 	rustup update $(RUST_TOOLCHAIN)
 	rustup toolchain install $(RUST_TOOLCHAIN)
 	rustup target add --toolchain $(RUST_TOOLCHAIN) wasm32-unknown-unknown
