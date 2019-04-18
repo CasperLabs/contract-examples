@@ -18,12 +18,10 @@ pub extern "C" fn call() {
         25, 5, 153, 113, 55, 255, 188, 176, 201, 7, 4, 42, 100,
     ]);
     let arg = "inc";
-    let args = vec![arg.to_bytes()];
-    let _result: () = call_contract(hash.clone(), &args, &Vec::new());
+    let _result: () = call_contract(hash.clone(), &arg, &Vec::new());
     let value: i32 = {
         let arg = "get";
-        let args = vec![arg.to_bytes()];
-        call_contract(hash, &args, &Vec::new())
+        call_contract(hash, &arg, &Vec::new())
     };
     assert_eq!(value, 1);
 }

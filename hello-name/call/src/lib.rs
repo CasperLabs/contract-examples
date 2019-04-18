@@ -20,8 +20,7 @@ pub extern "C" fn call() {
         25, 5, 153, 113, 55, 255, 188, 176, 201, 7, 4, 42, 100,
     ]);
     let arg = "World";
-    let args = vec![arg.to_bytes()];
-    let result: String = call_contract(hash, &args, &Vec::new());
+    let result: String = call_contract(hash, &arg, &Vec::new());
     assert_eq!("Hello, World", result);
 
     //store the result at a uref so it can be seen as an effect on the global state
