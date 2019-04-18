@@ -18,7 +18,7 @@ clean: down $(shell find . -type f -name "Cargo.toml" | awk '{print $$1"/clean"}
 # Building either a call or a define, leaving the WASM files in <contract>/target/wasm32-unknown-unknown/release/
 define CONTRACT_rule
 .make/contracts/$(1): $$(shell find $(1) -type f \( -name "Cargo.toml" -o -wholename "*/src/*.rs" \)) .make/rustup-update
-	cd $(1) && cargo +nightly build --release --target wasm32-unknown-unknown
+	cd $(1) && cargo +$(RUST_TOOLCHAIN) build --release --target wasm32-unknown-unknown
 	mkdir -p $$(dir $$@) && touch $$@
 endef
 
@@ -36,7 +36,7 @@ $(foreach d,$(CONTRACTS),$(eval $(call CONTRACT_rule,$(d))))
 	cd $* && cargo clean
 
 
-.make/rustup-update:
+.make/rustup-update: rust-toolchain
 	rustup update $(RUST_TOOLCHAIN)
 	rustup toolchain install $(RUST_TOOLCHAIN)
 	rustup target add --toolchain $(RUST_TOOLCHAIN) wasm32-unknown-unknown
