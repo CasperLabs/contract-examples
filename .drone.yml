@@ -32,3 +32,10 @@ pipeline:
     <<: *buildenv
     commands:
       - make all
+
+  notify:
+    image: plugins/slack
+    channel: alerts
+    secrets: [ slack_webhook ]
+    when:
+      status: [ failure ]
