@@ -37,5 +37,11 @@ pipeline:
     image: plugins/slack
     channel: alerts
     secrets: [ slack_webhook ]
+    template: |
+      *{{ uppercasefirst build.status }} *
+      PR: <${DRONE_COMMIT_LINK}|#{{ build.pull }} - ${DRONE_COMMIT_MESSAGE}>
+      Commit: <${DRONE_COMMIT_LINK}/commits/{{build.commit}}|{{ truncate build.commit 10 }}>
+      Author: {{ build.author }} 
+      Drone Build:  <{{ build.link }}|#{{ build.number }}>
     when:
       status: [ failure ]
