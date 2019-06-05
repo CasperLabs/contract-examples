@@ -9,9 +9,9 @@ branches:
 # FYI: There's no merging of arrays in YAML. At least not in the Go library
 # Drone uses to parse YAML. So if you mix in &sbtenv and want to add
 # additional volumes, as in package step, you need to specify all volumes.
-
-__buildenv: &buildenv
-  image: casperlabs/buildenv:latest
+#
+#__buildenv: &buildenv
+#  image: casperlabs/buildenv:latest
 
 clone:
   git-clone:
@@ -29,7 +29,7 @@ clone:
 pipeline:
 
   build:
-    <<: *buildenv
+    image: casperlabs/buildenv:latest
     commands:
       - make all
 
@@ -38,10 +38,9 @@ pipeline:
     channel: alerts
     secrets: [ slack_webhook ]
     template: |
-      *{{ uppercasefirst build.status }} *
-      PR: <${DRONE_COMMIT_LINK}|#{{ build.pull }} - ${DRONE_COMMIT_MESSAGE}>
-      Commit: <${DRONE_COMMIT_LINK}/commits/{{build.commit}}|{{ truncate build.commit 10 }}>
-      Author: {{ build.author }} 
-      Drone Build:  <{{ build.link }}|#{{ build.number }}>
+      *{{ uppercasefirst build.status }}*
+        Author: {{ build.author }} 
+        Drone Build: <{{ build.link }}|#{{ build.number }}>
+        Commit Link: <https://github.com/{{repo.owner}}/{{repo.name}}/commit/{{build.commit}}|{{ truncate build.commit 10 }}>
     when:
       status: [ failure ]
