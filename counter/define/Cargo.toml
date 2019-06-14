@@ -8,4 +8,4 @@ name = "counterdefine"
 crate-type = ["cdylib"]
 
 [dependencies]
-common = { package = "casperlabs-contract-ffi", version = "0.5.0" }
+common = { package = "casperlabs-contract-ffi", version = "0.8.0" }

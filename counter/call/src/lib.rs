@@ -1,12 +1,10 @@
 #![no_std]
 #![feature(alloc)]
 
-#[macro_use]
 extern crate alloc;
 use alloc::vec::Vec;
 
 extern crate common;
-use common::bytesrepr::ToBytes;
 use common::contract_api::call_contract;
 use common::contract_api::pointers::ContractPointer;
 
