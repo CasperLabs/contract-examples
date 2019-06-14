@@ -21,5 +21,4 @@ pub extern "C" fn call() {
         let arg = "get";
         call_contract(hash, &arg, &Vec::new())
     };
-    assert_eq!(value, 1);
 }
