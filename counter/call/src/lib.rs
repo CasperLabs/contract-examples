@@ -1,12 +1,10 @@
 #![no_std]
 #![feature(alloc)]
 
-#[macro_use]
 extern crate alloc;
 use alloc::vec::Vec;
 
 extern crate common;
-use common::bytesrepr::ToBytes;
 use common::contract_api::call_contract;
 use common::contract_api::pointers::ContractPointer;
 
@@ -23,5 +21,4 @@ pub extern "C" fn call() {
         let arg = "get";
         call_contract(hash, &arg, &Vec::new())
     };
-    assert_eq!(value, 1);
 }

@@ -34,5 +34,6 @@ pub extern "C" fn call() {
     let key_name = String::from("count");
     counter_urefs.insert(key_name, counter_local_key.into());
 
-    let _hash = store_function("counter_ext", counter_urefs);
+    let hash = store_function("counter_ext", counter_urefs);
+    add_uref("counter", &hash.into());
 }
