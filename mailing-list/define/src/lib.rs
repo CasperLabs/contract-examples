@@ -79,5 +79,6 @@ pub extern "C" fn call() {
     let key_name = String::from("list");
     mailing_list_urefs.insert(key_name, list_key.into());
 
-    let _hash = store_function("mailing_list_ext", mailing_list_urefs);
+    let pointer = store_function("mailing_list_ext", mailing_list_urefs);
+    add_uref("mailing", &pointer.into())
 }
