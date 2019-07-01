@@ -1,5 +1,5 @@
 [package]
-name = "mailing-list-define"
+name = "mailing-list-call"
 version = "0.1.0"
 authors = ["Michael Birch <birchmd@casperlabs.io>"]
 

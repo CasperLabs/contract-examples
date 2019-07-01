@@ -31,7 +31,7 @@ pipeline:
   build:
     image: casperlabs/buildenv:latest
     commands:
-      - make all
+      - ./.ci/build.sh
 
   notify:
     image: plugins/slack
