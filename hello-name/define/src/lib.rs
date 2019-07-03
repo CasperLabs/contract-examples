@@ -7,7 +7,7 @@ use alloc::string::String;
 use alloc::vec::Vec;
 
 extern crate common;
-use common::contract_api::{get_arg, ret, store_function};
+use common::contract_api::{add_uref, get_arg, ret, store_function};
 
 fn hello_name(name: &str) -> String {
     let mut result = String::from("Hello, ");
@@ -24,5 +24,6 @@ pub extern "C" fn hello_name_ext() {
 
 #[no_mangle]
 pub extern "C" fn call() {
-    let _hash = store_function("hello_name_ext", BTreeMap::new());
+    let pointer = store_function("hello_name_ext", BTreeMap::new());
+    add_uref("hello_name", &pointer.into());
 }
