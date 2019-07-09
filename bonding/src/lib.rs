@@ -18,13 +18,9 @@ const POS_CONTRACT_NAME: &str = "pos";
 
 #[no_mangle]
 pub extern "C" fn call() {
-    let pos_public: UPointer<Key> = if let Some(key) = contract_api::get_uref(POS_CONTRACT_NAME).to_u_ptr() {
-        key
-    } else {
-        contract_api::revert(66)
-    };
+    let pos_public: UPointer<Key> = unwrap_or_revert(contract_api::get_uref(POS_CONTRACT_NAME).to_u_ptr(), 66);
     let pos_contract: Key = contract_api::read(pos_public);
-    let pos_pointer = pos_contract.to_c_ptr().unwrap();
+    let pos_pointer = unwrap_or_revert(pos_contract.to_c_ptr(), 77);
 
     let source_purse = contract_api::main_purse();
     let bonding_purse = contract_api::create_purse();
@@ -40,5 +36,13 @@ pub extern "C" fn call() {
         }
 
         PurseTransferResult::TransferError => contract_api::revert(1324),
+    }
+}
+
+fn unwrap_or_revert<T>(option: Option<T>, code: u32) -> T {
+    if let Some(value) = option {
+        value
+    } else {
+        contract_api::revert(code)
     }
 }
