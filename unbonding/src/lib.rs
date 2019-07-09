@@ -15,7 +15,11 @@ const UNBOND_METHOD_NAME: &str = "unbond";
 
 #[no_mangle]
 pub extern "C" fn call() {
-    let pos_public: UPointer<Key> = contract_api::get_uref(POS_CONTRACT_NAME).to_u_ptr().unwrap();
+    let pos_public: UPointer<Key> = if let Some(key) = contract_api::get_uref(POS_CONTRACT_NAME).to_u_ptr() {
+        key
+    } else {
+        contract_api::revert(66)
+    };
     let pos_contract: Key = contract_api::read(pos_public);
     let pos_pointer = pos_contract.to_c_ptr().unwrap();
 
