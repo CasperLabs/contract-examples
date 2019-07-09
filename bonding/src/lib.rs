@@ -13,6 +13,7 @@ use common::value::uint::U512;
 // Put your desired bonding amount here.
 const BONDING_AMOUNT: u64 = 1000;
 
+const BOND_METHOD_NAME: &str = "bond";
 const POS_CONTRACT_NAME: &str = "pos";
 
 #[no_mangle]
@@ -29,7 +30,7 @@ pub extern "C" fn call() {
         PurseTransferResult::TransferSuccessful => {
             let _result: () = contract_api::call_contract(
                 pos_pointer,
-                &("bond", bond_amount, bonding_purse),
+                &(BOND_METHOD_NAME, bond_amount, bonding_purse),
                 &vec![Key::URef(bonding_purse.value())],
             );
         }

@@ -11,6 +11,7 @@ use common::key::Key;
 use common::value::uint::U512;
 
 const POS_CONTRACT_NAME: &str = "pos";
+const UNBOND_METHOD_NAME: &str = "unbond";
 
 #[no_mangle]
 pub extern "C" fn call() {
@@ -26,5 +27,5 @@ pub extern "C" fn call() {
     // this when changing the value.
     let unbond_amount: Option<U512> = None;
 
-    let _result: () = contract_api::call_contract(pos_pointer, &("unbond", unbond_amount), &vec![]);
+    let _result: () = contract_api::call_contract(pos_pointer, &(UNBOND_METHOD_NAME, unbond_amount), &vec![]);
 }
