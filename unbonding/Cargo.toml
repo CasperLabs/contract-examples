@@ -1,10 +1,10 @@
 [package]
-name = "unbonding-define"
+name = "unbonding"
 version = "0.1.0"
 authors = ["Michael Birch <birchmd@casperlabs.io>"]
 
 [lib]
-name = "unbondingdefine"
+name = "unbonding"
 crate-type = ["cdylib"]
 
 [dependencies]

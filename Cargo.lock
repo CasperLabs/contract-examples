@@ -22,7 +22,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "bonding-define"
+name = "bonding"
 version = "0.1.0"
 dependencies = [
  "casperlabs-contract-ffi 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -283,7 +283,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "unbonding-define"
+name = "unbonding"
 version = "0.1.0"
 dependencies = [
  "casperlabs-contract-ffi 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)",
