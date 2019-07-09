@@ -4,7 +4,6 @@ version = "0.1.0"
 authors = ["Michael Birch <birchmd@casperlabs.io>"]
 
 [lib]
-name = "bonding"
 crate-type = ["cdylib"]
 
 [dependencies]
