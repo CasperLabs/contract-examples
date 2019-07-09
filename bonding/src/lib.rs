@@ -3,8 +3,8 @@
 
 #[macro_use]
 extern crate alloc;
-
 extern crate common;
+
 use common::contract_api::{self, PurseTransferResult};
 use common::contract_api::pointers::UPointer;
 use common::key::Key;
