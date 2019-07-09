@@ -31,5 +31,5 @@ pub extern "C" fn call() {
     // this when changing the value.
     let unbond_amount: Option<U512> = None;
 
-    let _result: () = contract_api::call_contract(pos_pointer, &(UNBOND_METHOD_NAME, unbond_amount), &vec![]);
+    contract_api::call_contract(pos_pointer, &(UNBOND_METHOD_NAME, unbond_amount), &vec![])
 }

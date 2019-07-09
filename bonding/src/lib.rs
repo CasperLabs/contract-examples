@@ -32,11 +32,11 @@ pub extern "C" fn call() {
 
     match contract_api::transfer_from_purse_to_purse(source_purse, bonding_purse, bond_amount) {
         PurseTransferResult::TransferSuccessful => {
-            let _result: () = contract_api::call_contract(
+            contract_api::call_contract(
                 pos_pointer,
                 &(BOND_METHOD_NAME, bond_amount, bonding_purse),
                 &vec![Key::URef(bonding_purse.value())],
-            );
+            )
         }
 
         PurseTransferResult::TransferError => contract_api::revert(1324),
