@@ -10,9 +10,11 @@ use common::contract_api::pointers::UPointer;
 use common::key::Key;
 use common::value::uint::U512;
 
+const POS_CONTRACT_NAME: &str = "pos";
+
 #[no_mangle]
 pub extern "C" fn call() {
-    let pos_public: UPointer<Key> = contract_api::get_uref("pos").to_u_ptr().unwrap();
+    let pos_public: UPointer<Key> = contract_api::get_uref(POS_CONTRACT_NAME).to_u_ptr().unwrap();
     let pos_contract: Key = contract_api::read(pos_public);
     let pos_pointer = pos_contract.to_c_ptr().unwrap();
 
