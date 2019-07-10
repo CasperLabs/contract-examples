@@ -1,5 +1,5 @@
 [package]
-name = "store-hello-name"
+name = "hello-define"
 version = "0.1.0"
 authors = ["Michael Birch <birchmd@casperlabs.io>"]
 

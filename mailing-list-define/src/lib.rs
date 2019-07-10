@@ -8,8 +8,8 @@ use alloc::string::String;
 use alloc::vec::Vec;
 
 extern crate common;
-use common::contract_api::*;
 use common::contract_api::pointers::UPointer;
+use common::contract_api::*;
 use common::key::Key;
 use common::uref::URef;
 

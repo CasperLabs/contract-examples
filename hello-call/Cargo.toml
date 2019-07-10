@@ -1,5 +1,5 @@
 [package]
-name = "call-hello-name"
+name = "hello-call"
 version = "0.1.0"
 authors = ["Michael Birch <birchmd@casperlabs.io>"]
 

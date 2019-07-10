@@ -24,8 +24,8 @@ cargo build --release
 To build a specific contract and its companion:
 
 ```
-cargo build --release -p store-hello-name
-cargo build --release -p call-hello-name
+cargo build --release -p hello-define
+cargo build --release -p hello-call
 ```
 
 After building a contract, you will find the corresponding wasm file in `target/wasm32-unknown-unknown/release`.

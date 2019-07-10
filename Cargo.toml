@@ -2,11 +2,11 @@
 
 members = [
     "bonding",
-    "counter/call",
-    "counter/define",
-    "hello-name/call",
-    "hello-name/define",
-    "mailing-list/call",
-    "mailing-list/define",
     "unbonding",
+    "counter-call",
+    "counter-define",
+    "hello-call",
+    "hello-define",
+    "mailing-list-call",
+    "mailing-list-define",
 ]

@@ -5,8 +5,8 @@ extern crate alloc;
 use alloc::vec::Vec;
 
 extern crate common;
-use common::contract_api::{call_contract, revert, get_uref};
 use common::contract_api::pointers::ContractPointer;
+use common::contract_api::{call_contract, get_uref, revert};
 use common::key::Key;
 
 #[no_mangle]
