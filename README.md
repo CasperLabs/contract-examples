@@ -2,10 +2,18 @@
 
 Each subdirectory contains an example of a smart contract definition and a companion contract that calls it.
 
+## Prerequisites:
+
+* [`rustup`](https://rustup.rs/)
+
+After installing `rustup`, run the following commands from the root of this repo:
+
+```
+rustup toolchain install $(cat rust-toolchain)
+rustup target add --toolchain $(cat rust-toolchain) wasm32-unknown-unknown
+```
 
 ## Building
-
-To build the contracts you'll need to install [Rust](https://www.rust-lang.org/tools/install) and [Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html).
 
 To build all the contracts:
 
