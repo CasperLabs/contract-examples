@@ -2,7 +2,7 @@
 
 Each subdirectory contains an example of a smart contract definition and a companion contract that calls it.
 
-## Prerequisites:
+## Prerequisites
 
 * [`rustup`](https://rustup.rs/)
 
