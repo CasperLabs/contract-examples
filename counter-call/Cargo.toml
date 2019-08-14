@@ -8,4 +8,4 @@ name = "countercall"
 crate-type = ["cdylib"]
 
 [dependencies]
-common = { package = "casperlabs-contract-ffi", version = "0.10.0" }
+common = { package = "casperlabs-contract-ffi", version = "0.11.0" }
