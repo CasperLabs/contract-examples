@@ -13,7 +13,7 @@ use common::value::Value;
 
 #[no_mangle]
 pub extern "C" fn call() {
-    let pointer = if let Key::Hash(hash) = get_uref("hello_name") {
+    let pointer = if let Some(Key::Hash(hash)) = get_uref("hello_name") {
         ContractPointer::Hash(hash)
     } else {
         revert(66); // exit code is currently arbitrary
