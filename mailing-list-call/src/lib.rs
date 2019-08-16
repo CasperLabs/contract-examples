@@ -13,7 +13,7 @@ use common::key::Key;
 
 #[no_mangle]
 pub extern "C" fn call() {
-    let pointer = if let Key::Hash(hash) = get_uref("mailing") {
+    let pointer = if let Some(Key::Hash(hash)) = get_uref("mailing") {
         ContractPointer::Hash(hash)
     } else {
         revert(66); // exit code is currently arbitrary
@@ -27,7 +27,7 @@ pub extern "C" fn call() {
 
     let key_name = "mail_feed";
     add_uref(key_name, &sub_key);
-    assert_eq!(sub_key, get_uref(key_name));
+    assert_eq!(Some(sub_key), get_uref(key_name));
 
     let method = "pub";
     let message = "Hello, World!";
