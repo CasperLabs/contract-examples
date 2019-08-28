@@ -3,12 +3,12 @@
 
 #[macro_use]
 extern crate alloc;
-extern crate common;
+extern crate contract_ffi;
 
-use common::contract_api;
-use common::contract_api::pointers::UPointer;
-use common::key::Key;
-use common::value::uint::U512;
+use contract_ffi::contract_api;
+use contract_ffi::contract_api::pointers::UPointer;
+use contract_ffi::key::Key;
+use contract_ffi::value::uint::U512;
 
 const POS_CONTRACT_NAME: &str = "pos";
 const UNBOND_METHOD_NAME: &str = "unbond";
@@ -20,8 +20,10 @@ const UNBOND_METHOD_NAME: &str = "unbond";
 // Otherwise (`Some<u64>`) unbonds with part of the bonded stakes.
 #[no_mangle]
 pub extern "C" fn call() {
-    let pos_public: UPointer<Key> =
-        unwrap_or_revert(contract_api::get_uref(POS_CONTRACT_NAME).and_then(Key::to_u_ptr), 66);
+    let pos_public: UPointer<Key> = unwrap_or_revert(
+        contract_api::get_uref(POS_CONTRACT_NAME).and_then(Key::to_u_ptr),
+        66,
+    );
     let pos_contract: Key = contract_api::read(pos_public);
     let pos_pointer = unwrap_or_revert(pos_contract.to_c_ptr(), 77);
 
