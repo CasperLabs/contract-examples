@@ -4,10 +4,10 @@
 extern crate alloc;
 use alloc::vec::Vec;
 
-extern crate common;
-use common::contract_api::pointers::ContractPointer;
-use common::contract_api::{call_contract, get_uref, revert};
-use common::key::Key;
+extern crate contract_ffi;
+use contract_ffi::contract_api::pointers::ContractPointer;
+use contract_ffi::contract_api::{call_contract, get_uref, revert};
+use contract_ffi::key::Key;
 
 #[no_mangle]
 pub extern "C" fn call() {

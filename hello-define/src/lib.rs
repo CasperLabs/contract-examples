@@ -6,8 +6,8 @@ use alloc::collections::BTreeMap;
 use alloc::string::String;
 use alloc::vec::Vec;
 
-extern crate common;
-use common::contract_api::{add_uref, get_arg, ret, store_function};
+extern crate contract_ffi;
+use contract_ffi::contract_api::{add_uref, get_arg, ret, store_function};
 
 fn hello_name(name: &str) -> String {
     let mut result = String::from("Hello, ");

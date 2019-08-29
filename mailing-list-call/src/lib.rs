@@ -6,10 +6,10 @@ extern crate alloc;
 use alloc::string::String;
 use alloc::vec::Vec;
 
-extern crate common;
-use common::contract_api::pointers::*;
-use common::contract_api::*;
-use common::key::Key;
+extern crate contract_ffi;
+use contract_ffi::contract_api::pointers::*;
+use contract_ffi::contract_api::*;
+use contract_ffi::key::Key;
 
 #[no_mangle]
 pub extern "C" fn call() {
