@@ -1,5 +1,4 @@
 #![no_std]
-#![feature(alloc)]
 
 extern crate alloc;
 use alloc::string::String;
@@ -18,7 +17,7 @@ pub extern "C" fn call() {
     } else {
         revert(66); // exit code is currently arbitrary
     };
-    let arg = "World";
+    let arg = ("World",);
     let result: String = call_contract(pointer, &arg, &Vec::new());
     assert_eq!("Hello, World", result);
 
