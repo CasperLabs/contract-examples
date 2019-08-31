@@ -1,5 +1,4 @@
 #![no_std]
-#![feature(alloc)]
 
 extern crate alloc;
 use alloc::collections::BTreeMap;

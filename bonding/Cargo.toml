@@ -2,9 +2,10 @@
 name = "bonding"
 version = "0.1.0"
 authors = ["Michael Birch <birchmd@casperlabs.io>"]
+edition = "2018"
 
 [lib]
 crate-type = ["cdylib"]
 
 [dependencies]
-contract-ffi = {package = "casperlabs-contract-ffi", version = "0.12.0" }
+contract-ffi = {package = "casperlabs-contract-ffi", version = "0.13.0" }

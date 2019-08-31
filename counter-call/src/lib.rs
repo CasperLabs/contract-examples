@@ -1,5 +1,4 @@
 #![no_std]
-#![feature(alloc)]
 
 extern crate alloc;
 use alloc::vec::Vec;
@@ -17,10 +16,10 @@ pub extern "C" fn call() {
         revert(66)
     };
 
-    let arg = "inc";
+    let arg = ("inc",);
     let _result: () = call_contract(pointer.clone(), &arg, &Vec::new());
     let _value: i32 = {
-        let arg = "get";
+        let arg = ("get",);
         call_contract(pointer, &arg, &Vec::new())
     };
 }
