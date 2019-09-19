@@ -33,7 +33,7 @@ pub extern "C" fn call() {
     let args = (method, message);
     let _result: () = call_contract(pointer, &args, &Vec::new());
 
-    let list_key: UPointer<Vec<String>> = sub_key.to_u_ptr().unwrap();
+    let list_key: TURef<Vec<String>> = sub_key.to_turef().unwrap();
     let messages = read(list_key);
 
     assert_eq!(

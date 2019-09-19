@@ -4,7 +4,7 @@
 extern crate alloc;
 extern crate contract_ffi;
 
-use contract_ffi::contract_api::pointers::UPointer;
+use contract_ffi::contract_api::pointers::TURef;
 use contract_ffi::contract_api::{self, PurseTransferResult};
 use contract_ffi::key::Key;
 use contract_ffi::value::uint::U512;
@@ -18,8 +18,8 @@ const POS_CONTRACT_NAME: &str = "pos";
 // Issues bonding request to the PoS contract.
 #[no_mangle]
 pub extern "C" fn call() {
-    let pos_public: UPointer<Key> = unwrap_or_revert(
-        contract_api::get_uref(POS_CONTRACT_NAME).and_then(Key::to_u_ptr),
+    let pos_public: TURef<Key> = unwrap_or_revert(
+        contract_api::get_uref(POS_CONTRACT_NAME).and_then(Key::to_turef),
         66,
     );
     let pos_contract: Key = contract_api::read(pos_public);

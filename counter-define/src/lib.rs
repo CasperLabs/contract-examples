@@ -6,13 +6,13 @@ use alloc::string::String;
 use alloc::vec::Vec;
 
 extern crate contract_ffi;
-use contract_ffi::contract_api::pointers::UPointer;
+use contract_ffi::contract_api::pointers::TURef;
 use contract_ffi::contract_api::*;
 use contract_ffi::key::Key;
 
 #[no_mangle]
 pub extern "C" fn counter_ext() {
-    let i_key: UPointer<i32> = get_uref("count").and_then(Key::to_u_ptr).unwrap();
+    let i_key: TURef<i32> = get_uref("count").and_then(Key::to_turef).unwrap();
     let method_name: String = get_arg(0);
     match method_name.as_str() {
         "inc" => add(i_key, 1),
@@ -26,7 +26,7 @@ pub extern "C" fn counter_ext() {
 
 #[no_mangle]
 pub extern "C" fn call() {
-    let counter_local_key = new_uref(0); //initialize counter
+    let counter_local_key = new_turef(0); //initialize counter
 
     //create map of references for stored contract
     let mut counter_urefs: BTreeMap<String, Key> = BTreeMap::new();
