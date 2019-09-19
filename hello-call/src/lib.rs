@@ -6,7 +6,7 @@ use alloc::vec::Vec;
 
 extern crate contract_ffi;
 use contract_ffi::contract_api::pointers::ContractPointer;
-use contract_ffi::contract_api::{call_contract, get_uref, new_uref, revert};
+use contract_ffi::contract_api::{call_contract, get_uref, new_turef, revert};
 use contract_ffi::key::Key;
 use contract_ffi::value::Value;
 
@@ -22,5 +22,5 @@ pub extern "C" fn call() {
     assert_eq!("Hello, World", result);
 
     //store the result at a uref so it can be seen as an effect on the global state
-    let _uref = new_uref(Value::String(result));
+    let _uref = new_turef(Value::String(result));
 }
