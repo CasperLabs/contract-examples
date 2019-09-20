@@ -17,7 +17,9 @@ pub extern "C" fn counter_ext() {
     match method_name.as_str() {
         "inc" => add(i_key, 1),
         "get" => {
-            let result = read(i_key);
+            let result = read(i_key)
+                .unwrap_or_else(|_| revert(Error::Read.into()))
+                .unwrap_or_else(|| revert(Error::ValueNotFound.into()));
             ret(&result, &Vec::new());
         }
         _ => panic!("Unknown method name!"),

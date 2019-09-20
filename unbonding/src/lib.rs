@@ -4,8 +4,8 @@
 extern crate alloc;
 extern crate contract_ffi;
 
-use contract_ffi::contract_api;
 use contract_ffi::contract_api::pointers::TURef;
+use contract_ffi::contract_api::{self, Error};
 use contract_ffi::key::Key;
 use contract_ffi::value::uint::U512;
 
@@ -23,7 +23,9 @@ pub extern "C" fn call() {
         contract_api::get_uref(POS_CONTRACT_NAME).and_then(Key::to_turef),
         66,
     );
-    let pos_contract: Key = contract_api::read(pos_public);
+    let pos_contract: Key = contract_api::read(pos_public)
+        .unwrap_or_else(|_| contract_api::revert(Error::GetURef.into()))
+        .unwrap_or_else(|| contract_api::revert(Error::ValueNotFound.into()));
     let pos_pointer = unwrap_or_revert(pos_contract.to_c_ptr(), 77);
 
     let unbond_amount: Option<U512> = contract_api::get_arg::<Option<u64>>(0).map(U512::from);

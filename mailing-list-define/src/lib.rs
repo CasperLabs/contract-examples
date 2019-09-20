@@ -18,7 +18,9 @@ fn get_list_key(name: &str) -> TURef<Vec<String>> {
 
 fn update_list(name: String) {
     let list_key = get_list_key("list");
-    let mut list = read(list_key.clone());
+    let mut list = read(list_key.clone())
+        .unwrap_or_else(|_| revert(Error::GetURef.into()))
+        .unwrap_or_else(|| revert(Error::ValueNotFound.into()));
     list.push(name);
     write(list_key, list);
 }
@@ -36,10 +38,14 @@ fn sub(name: String) -> Option<TURef<Vec<String>>> {
 }
 
 fn publish(msg: String) {
-    let curr_list = read(get_list_key("list"));
+    let curr_list = read(get_list_key("list"))
+        .unwrap_or_else(|_| revert(Error::GetURef.into()))
+        .unwrap_or_else(|| revert(Error::ValueNotFound.into()));
     for name in curr_list.iter() {
         let uref = get_list_key(name);
-        let mut messages = read(uref.clone());
+        let mut messages = read(uref.clone())
+            .unwrap_or_else(|_| revert(Error::GetURef.into()))
+            .unwrap_or_else(|| revert(Error::ValueNotFound.into()));
         messages.push(msg.clone());
         write(uref, messages);
     }
