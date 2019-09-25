@@ -34,9 +34,11 @@ pub extern "C" fn call() {
     let _result: () = call_contract(pointer, &args, &Vec::new());
 
     let list_key: TURef<Vec<String>> = sub_key.to_turef().unwrap();
-    let messages = read(list_key)
-        .unwrap_or_else(|_| revert(Error::Read.into()))
-        .unwrap_or_else(|| revert(Error::ValueNotFound.into()));
+    let messages = match read(list_key) {
+        Ok(Some(messages)) => messages,
+        Ok(None) => revert(Error::ValueNotFound.into()),
+        Err(_) => revert(Error::Read.into()),
+    };
 
     assert_eq!(
         vec![String::from("Welcome!"), String::from(message)],

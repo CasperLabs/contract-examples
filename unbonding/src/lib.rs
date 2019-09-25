@@ -23,12 +23,18 @@ pub extern "C" fn call() {
         contract_api::get_uref(POS_CONTRACT_NAME).and_then(Key::to_turef),
         66,
     );
-    let pos_contract: Key = contract_api::read(pos_public)
-        .unwrap_or_else(|_| contract_api::revert(Error::GetURef.into()))
-        .unwrap_or_else(|| contract_api::revert(Error::ValueNotFound.into()));
+    let pos_contract: Key = match contract_api::read(pos_public) {
+        Ok(Some(contract)) => contract,
+        Ok(None) => contract_api::revert(Error::ValueNotFound.into()),
+        Err(_) => contract_api::revert(Error::Read.into()),
+    };
     let pos_pointer = unwrap_or_revert(pos_contract.to_c_ptr(), 77);
 
-    let unbond_amount: Option<U512> = contract_api::get_arg::<Option<u64>>(0).map(U512::from);
+    let unbond_amount: Option<U512> = match contract_api::get_arg::<Option<u64>>(0) {
+        Some(Ok(amount)) => amount.map(U512::from),
+        Some(Err(_)) => contract_api::revert(Error::InvalidArgument.into()),
+        None => contract_api::revert(Error::MissingArgument.into()),
+    };
 
     contract_api::call_contract(pos_pointer, &(UNBOND_METHOD_NAME, unbond_amount), &vec![])
 }

@@ -6,7 +6,7 @@ use alloc::string::String;
 use alloc::vec::Vec;
 
 extern crate contract_ffi;
-use contract_ffi::contract_api::{add_uref, get_arg, ret, store_function};
+use contract_ffi::contract_api::{add_uref, get_arg, ret, revert, store_function, Error};
 
 fn hello_name(name: &str) -> String {
     let mut result = String::from("Hello, ");
@@ -16,7 +16,11 @@ fn hello_name(name: &str) -> String {
 
 #[no_mangle]
 pub extern "C" fn hello_name_ext() {
-    let name: String = get_arg(0);
+    let name: String = match get_arg(0) {
+        Some(Ok(name)) => name,
+        Some(Err(_)) => revert(Error::InvalidArgument.into()),
+        None => revert(Error::MissingArgument.into()),
+    };
     let y = hello_name(&name);
     ret(&y, &Vec::new());
 }
