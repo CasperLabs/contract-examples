@@ -22,9 +22,11 @@ pub extern "C" fn call() {
         contract_api::get_uref(POS_CONTRACT_NAME).and_then(Key::to_turef),
         66,
     );
-    let pos_contract: Key = contract_api::read(pos_public)
-        .unwrap_or_else(|_| contract_api::revert(Error::GetURef.into()))
-        .unwrap_or_else(|| contract_api::revert(Error::ValueNotFound.into()));
+    let pos_contract: Key = match contract_api::read(pos_public) {
+        Ok(Some(contract)) => contract,
+        Ok(None) => contract_api::revert(Error::ValueNotFound.into()),
+        Err(_) => contract_api::revert(Error::GetURef.into())
+    };
     let pos_pointer = unwrap_or_revert(pos_contract.to_c_ptr(), 77);
 
     let source_purse = contract_api::main_purse();
