@@ -5,7 +5,7 @@ extern crate alloc;
 extern crate contract_ffi;
 
 use contract_ffi::contract_api::pointers::TURef;
-use contract_ffi::contract_api::{self, PurseTransferResult};
+use contract_ffi::contract_api::{self, Error, PurseTransferResult};
 use contract_ffi::key::Key;
 use contract_ffi::value::uint::U512;
 
@@ -22,12 +22,20 @@ pub extern "C" fn call() {
         contract_api::get_uref(POS_CONTRACT_NAME).and_then(Key::to_turef),
         66,
     );
-    let pos_contract: Key = contract_api::read(pos_public);
+    let pos_contract: Key = match contract_api::read(pos_public) {
+        Ok(Some(contract)) => contract,
+        Ok(None) => contract_api::revert(Error::ValueNotFound.into()),
+        Err(_) => contract_api::revert(Error::GetURef.into())
+    };
     let pos_pointer = unwrap_or_revert(pos_contract.to_c_ptr(), 77);
 
     let source_purse = contract_api::main_purse();
     let bonding_purse = contract_api::create_purse();
-    let bond_amount: U512 = U512::from(contract_api::get_arg::<u64>(0));
+    let bond_amount: U512 = match contract_api::get_arg::<u64>(0) {
+        Some(Ok(amount)) => amount.into(),
+        Some(Err(_)) => contract_api::revert(Error::InvalidArgument.into()),
+        None => contract_api::revert(Error::MissingArgument.into()),
+    };
 
     match contract_api::transfer_from_purse_to_purse(source_purse, bonding_purse, bond_amount) {
         PurseTransferResult::TransferSuccessful => contract_api::call_contract(
