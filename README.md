@@ -24,8 +24,7 @@ cargo build --release
 To build a specific contract and its companion:
 
 ```
-cargo build --release -p hello-define
-cargo build --release -p hello-call
+cargo build --release -p hello-define -p hello-call
 ```
 
 After building a contract, you will find the corresponding wasm file in `target/wasm32-unknown-unknown/release`.
@@ -34,4 +33,4 @@ After building a contract, you will find the corresponding wasm file in `target/
 
 ## Using
 
-To deploy a compiled contract to a CasperLabs node, please see the CasperLabs [Developer Documentation](https://github.com/CasperLabs/CasperLabs/blob/dev/DEVELOPER.md#deploying-data).
+To deploy a compiled contract to a CasperLabs node, please see the CasperLabs [Developer Documentation](https://github.com/CasperLabs/CasperLabs/blob/dev/docs/CONTRACTS.md).
