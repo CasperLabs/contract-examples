@@ -9,4 +9,4 @@ name = "mailinglistcall"
 crate-type = ["cdylib"]
 
 [dependencies]
-contract-ffi = { package = "casperlabs-contract-ffi", version = "0.17.0" }
+contract-ffi = { package = "casperlabs-contract-ffi", version = "0.18.0" }

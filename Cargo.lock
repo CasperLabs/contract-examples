@@ -30,7 +30,7 @@ dependencies = [
 name = "bonding"
 version = "0.1.0"
 dependencies = [
- "casperlabs-contract-ffi 0.17.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "casperlabs-contract-ffi 0.18.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -45,7 +45,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "casperlabs-contract-ffi"
-version = "0.17.0"
+version = "0.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "binascii 0.1.2 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -67,14 +67,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 name = "counter-call"
 version = "0.1.0"
 dependencies = [
- "casperlabs-contract-ffi 0.17.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "casperlabs-contract-ffi 0.18.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "counter-define"
 version = "0.1.0"
 dependencies = [
- "casperlabs-contract-ffi 0.17.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "casperlabs-contract-ffi 0.18.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -130,14 +130,14 @@ dependencies = [
 name = "hello-call"
 version = "0.1.0"
 dependencies = [
- "casperlabs-contract-ffi 0.17.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "casperlabs-contract-ffi 0.18.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "hello-define"
 version = "0.1.0"
 dependencies = [
- "casperlabs-contract-ffi 0.17.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "casperlabs-contract-ffi 0.18.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -149,14 +149,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 name = "mailing-list-call"
 version = "0.1.0"
 dependencies = [
- "casperlabs-contract-ffi 0.17.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "casperlabs-contract-ffi 0.18.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "mailing-list-define"
 version = "0.1.0"
 dependencies = [
- "casperlabs-contract-ffi 0.17.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "casperlabs-contract-ffi 0.18.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -253,7 +253,7 @@ dependencies = [
 name = "unbonding"
 version = "0.1.0"
 dependencies = [
- "casperlabs-contract-ffi 0.17.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "casperlabs-contract-ffi 0.18.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -298,7 +298,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum blake2 0.8.1 (registry+https://github.com/rust-lang/crates.io-index)" = "94cb07b0da6a73955f8fb85d24c466778e70cda767a568229b104f0264089330"
 "checksum byte-tools 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)" = "e3b5ca7a04898ad4bcd41c90c5285445ff5b791899bb1b0abdd2a2aa791211d7"
 "checksum byteorder 1.3.2 (registry+https://github.com/rust-lang/crates.io-index)" = "a7c3dd8985a7111efc5c80b44e23ecdd8c007de8ade3b96595387e812b957cf5"
-"checksum casperlabs-contract-ffi 0.17.0 (registry+https://github.com/rust-lang/crates.io-index)" = "3c5defd21c498e05bb977d3842e971d39b88495126f0942afc1337edb8dcac95"
+"checksum casperlabs-contract-ffi 0.18.0 (registry+https://github.com/rust-lang/crates.io-index)" = "6459d630d9bc18304e0128152586041220d3dc895b3f3e38a7c5f2bcaab4dced"
 "checksum cfg-if 0.1.10 (registry+https://github.com/rust-lang/crates.io-index)" = "4785bdd1c96b2a846b2bd7cc02e86b6b3dbf14e7e53446c4f54c92a361040822"
 "checksum crunchy 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)" = "7a81dae078cea95a014a339291cec439d2f232ebe854a9d672b796c6afafa9b7"
 "checksum crypto-mac 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)" = "4434400df11d95d556bac068ddfedd482915eb18fe8bea89bc80b6e4b1c179e5"
