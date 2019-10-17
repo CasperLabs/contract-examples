@@ -5,8 +5,7 @@ extern crate alloc;
 
 extern crate contract_ffi;
 
-use contract_ffi::contract_api::pointers::TURef;
-use contract_ffi::contract_api::{self, Error};
+use contract_ffi::contract_api::{account, runtime, storage, system, Error, TURef};
 use contract_ffi::key::Key;
 use contract_ffi::unwrap_or_revert::UnwrapOrRevert;
 use contract_ffi::value::uint::U512;
@@ -20,28 +19,28 @@ const POS_CONTRACT_NAME: &str = "pos";
 // Issues bonding request to the PoS contract.
 #[no_mangle]
 pub extern "C" fn call() {
-    let pos_key = contract_api::get_key(POS_CONTRACT_NAME).unwrap_or_revert_with(Error::GetURef);
+    let pos_key = runtime::get_key(POS_CONTRACT_NAME).unwrap_or_revert_with(Error::GetKey);
     let pos_turef: TURef<Key> = pos_key
         .to_turef()
         .unwrap_or_revert_with(Error::UnexpectedKeyVariant);
 
-    let pos_contract = contract_api::read(pos_turef)
+    let pos_contract = storage::read(pos_turef)
         .unwrap_or_revert_with(Error::Read)
         .unwrap_or_revert_with(Error::ValueNotFound);
     let pos_pointer = pos_contract
         .to_c_ptr()
         .unwrap_or_revert_with(Error::UnexpectedKeyVariant);
 
-    let source_purse = contract_api::main_purse();
-    let bonding_purse = contract_api::create_purse();
-    let bond_amount: U512 = contract_api::get_arg::<u64>(0)
+    let source_purse = account::get_main_purse();
+    let bonding_purse = system::create_purse();
+    let bond_amount: U512 = runtime::get_arg::<u64>(0)
         .unwrap_or_revert_with(Error::MissingArgument)
         .unwrap_or_revert_with(Error::InvalidArgument)
         .into();
 
-    contract_api::transfer_from_purse_to_purse(source_purse, bonding_purse, bond_amount)
+    system::transfer_from_purse_to_purse(source_purse, bonding_purse, bond_amount)
         .unwrap_or_revert();
-    contract_api::call_contract::<_, ()>(
+    runtime::call_contract::<_, ()>(
         pos_pointer,
         &(BOND_METHOD_NAME, bond_amount, bonding_purse),
         &vec![Key::URef(bonding_purse.value())],
