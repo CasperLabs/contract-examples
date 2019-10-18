@@ -1,4 +1,14 @@
-# CasperLabs Smart Contract Examples
+# :warning: DEPRECATED :warning: CasperLabs Smart Contract Examples
+
+**This repository is no longer supported**
+
+All contract examples are currently developed in the main [CasperLabs](https://github.com/CasperLabs/CasperLabs/) repository.
+
+Existing contracts from this repository were moved to their new location in the main repo where they are actively maintained:
+
+https://github.com/CasperLabs/CasperLabs/tree/dev/execution-engine/contracts/examples
+
+---
 
 Each subdirectory contains an example of a smart contract definition and a companion contract that calls it.
 
